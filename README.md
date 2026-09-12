@@ -1,5 +1,9 @@
 # Lapwiz-Team-ExeBackup
 
+<p align="center">
+  <img src="branding/app-icon.png" alt="Lapwiz Setup" width="160" height="160">
+</p>
+
 Outils Lapwiz pour **nettoyer** un PC (Expiro / malwares) puis **réinstaller** et **réparer** (winget, ADB/scrcpy).
 
 ## Démarrage rapide
