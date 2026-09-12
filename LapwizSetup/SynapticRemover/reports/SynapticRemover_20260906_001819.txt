@@ -1,0 +1,34 @@
+﻿============================================================
+ SynapticRemover - Cleanup Report
+============================================================
+
+[00:18:19] [HEADER] SynapticRemover report
+[00:18:19] [INFO  ] Lang=fr
+[00:18:19] [INFO  ] Computer=DESKTOP-A7HPEET
+[00:18:19] [INFO  ] User=switc
+[00:18:19] [INFO  ] OS=Microsoft Windows NT 10.0.19045.0
+[00:18:19] [INFO  ] Start=2026-09-06 00:18:19
+[00:18:19] [INFO  ] Mode=AUTO
+[00:18:19] [INFO  ] ScanMode=AllVolumes
+[00:18:20] [STEP  ] --- Step 1: Afficher les fichiers cachés ---
+[00:18:20] [STEP  ] --- Step 2: Arrêter les processus malveillants ---
+[00:18:20] [STEP  ] --- Step 3: Nettoyer la persistance registre ---
+[00:18:20] [STEP  ] --- Step 4: Supprimer les dossiers virus ---
+[00:18:20] [STEP  ] --- Step 5: Supprimer caches virus (._cache_* / ~$cache1) ---
+[00:18:55] [STEP  ] --- Step 6: Scanner tous les volumes (autorun / Synaptics) ---
+[00:18:56] [OK    ] Volume surface scan done
+[00:18:56] [STEP  ] --- Step 7: Nettoyer %TEMP% ---
+[00:19:21] [STEP  ] --- Step 8: Préparer synaptics-recover ---
+[00:19:24] [STEP  ] --- Step 9: Mode kill synaptics-recover (-k) ---
+[00:19:25] [STEP  ] --- Step 10: Scan / réparation EXE et XLSM ---
+[00:19:25] [INFO  ] Auto deep scan mode=AllVolumes
+[00:19:25] [SCAN  ] Deep scan start: C:\
+[00:25:37] [OK    ] Deep scan done: C:\
+[00:25:37] [SCAN  ] Deep scan start: D:\
+[00:31:40] [OK    ] Deep scan done: D:\
+[00:31:40] [STEP  ] --- Step 11: Vérification finale ---
+[00:31:40] [OK    ] No obvious traces
+[00:31:40] [INFO  ] End=2026-09-06 00:31:40
+[00:31:40] [INFO  ] DurationSec=801
+[00:31:40] [SCAN  ] DeepScanPath=C:\; D:\
+[00:31:40] [FOOTER] ResultTraces=NO

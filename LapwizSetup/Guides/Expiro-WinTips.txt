@@ -1,0 +1,94 @@
+﻿GUIDE EXPIRO — Boot hors Windows (parcours type WinTips)
+Source + images : https://www.wintips.org/remove-win32-expiro-virus/
+Trend Micro   : https://www.trendmicro.com/vinfo/us/threat-encyclopedia/malware/virus.win64.expiro.aa
+----------------------------------------------------------
+
+RESUME TREND MICRO — Virus.Win64.EXPIRO.AA (2020)
+- Virus de fichiers EXE (64-bit), resident memoire, chiffre, en the wild
+- Alias : Virus.Win64.Expiro (Ikarus), W64/Expiro.CE (Fortinet), Win32/Expiro.NDH (ESET)
+- Infecte les .EXE (Bureau, Menu Demarrer, tous lecteurs USB/reseau)
+- Persistance : detourne Startup (Shell Folders) vers %LocalAppData%\{aleatoire}\cmd.exe
+- Stoppe services : WinDefend, MsMpSvc, NisSrv, wscsvc, wuauserv, gupdate...
+- Exfiltre infos machine en HTTP POST vers domaines C2
+- Pas de backdoor/rootkit selon Trend ; pas d'exploit
+- Artefacts : LocalAppData\{rand}\cmd.exe, *.tmp infectants, ProgramData\{rand}.dat|.nls
+- Lapwiz : wizard 6 phases + Audit / Startup / Services / Artefacts
+- KVRT : telecharger + lancer (howto Kaspersky scan)
+- MBAM : winget install / lancer ; FRST + RogueKiller via liens
+- Defender : scan complet automatise
+
+QUAND L'UTILISER
+- Beaucoup d'EXE detectes Win32/Win64 Expiro
+- Les scans Windows echouent ou se reinfectent
+- Fichiers systeme suspects (ex. msiexec)
+
+IMPORTANT
+- L'option "Cure" peut laisser des EXE instables
+- Apres nettoyage : reinstalle les apps (onglet Installateur / winget)
+- Ne restaure JAMAIS d'anciens EXE / Program Files infectes
+- Sauvegarde seulement docs / photos / videos (pas d'installateurs)
+
+==========================================================
+ETAPE 1 — Preparer un LiveDisk sur un PC SAIN
+==========================================================
+1. Sur un autre ordinateur non infecte, telecharge Dr.Web LiveDisk (ISO).
+2. Grave l'ISO sur DVD ou cree une cle USB bootable (Rufus / Media Creation).
+3. Ne telecharge pas les outils depuis le PC infecte si possible.
+
+==========================================================
+ETAPE 2 — Boot + scan Dr.Web (hors Windows)
+==========================================================
+1. BIOS/UEFI : boot USB/DVD en premier (DEL / F2 / F10 / F12 selon PC).
+2. Demarre Dr.Web LiveDisk, choisis la langue.
+3. Ouvre Scanner → Full Scan → lance le scan complet.
+4. Selectionne les fichiers *.exe infectes → Cure (pas seulement Delete partout).
+5. Eteins proprement, retire le media LiveDisk.
+
+==========================================================
+ETAPE 3 — Mode sans echec avec reseau (Windows 10/11)
+==========================================================
+Note WinTips mentionne F8 (ancien). Sur Win10/11 :
+1. Parametres → Systeme → Recuperation → Demarrage avance → Redemarrer.
+   OU : msconfig → Onglet Demarrage → Demarrage securise + Reseau.
+2. Une fois en Safe Mode with Networking, continue les etapes 4-6.
+3. Dans Lapwiz : Audit Trend → Corriger Startup → Relancer services AV.
+
+==========================================================
+ETAPE 4 — RogueKiller
+==========================================================
+1. Telecharge RogueKiller (x64 ou x86 selon ton systeme).
+2. Scan → onglet Registry : supprime les entrees malveillantes marquees.
+3. Ferme l'outil.
+
+==========================================================
+ETAPE 5 — AdwCleaner
+==========================================================
+1. Lance AdwCleaner → Scan → Clean.
+2. Accepte le redemarrage si demande.
+
+==========================================================
+ETAPE 6 — Malwarebytes
+==========================================================
+1. Installe / lance Malwarebytes, mets a jour les definitions.
+2. Scan complet → Quarantaine de toutes les menaces.
+3. Redemarre si demande, rescan pour confirmer.
+
+==========================================================
+ETAPE 7 — Antivirus + reinstallation apps
+==========================================================
+1. Scan complet Microsoft Defender (tous les disques + USB).
+2. Si plus de detection Expiro : onglet Installateur Lapwiz → winget.
+3. Si detections massives ou retour apres reboot :
+   → reinstallation Windows propre (media cree sur PC sain)
+   → format partition systeme
+   → ne recolle pas les vieux Program Files
+
+==========================================================
+LIENS UTILES
+==========================================================
+WinTips Expiro : https://www.wintips.org/remove-win32-expiro-virus/
+Trend EXPIRO.AA : https://www.trendmicro.com/vinfo/us/threat-encyclopedia/malware/virus.win64.expiro.aa
+Dr.Web LiveDisk : https://free.drweb.com/livedisk/
+Malwarebytes    : https://www.malwarebytes.com/
+AdwCleaner      : https://www.malwarebytes.com/adwcleaner
+RogueKiller     : https://www.adlice.com/roguekiller/

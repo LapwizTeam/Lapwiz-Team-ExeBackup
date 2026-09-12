@@ -1,0 +1,39 @@
+﻿================================================================================
+SynapticRemover - README / LIRE-MOI / اقرأني
+================================================================================
+
+--- Français ---
+Dossiers
+--------
+01-Nettoyage-Automatique
+    Nettoyage complet automatique (recommandé)
+
+02-Nettoyage-Interactif
+    Mode manuel (choix des options)
+
+Chaque dossier est autonome : copiez uniquement celui dont vous avez besoin.
+Exécutez toujours le .bat en tant qu'Administrateur.
+
+--- English ---
+Folders
+-------
+01-Nettoyage-Automatique
+    Full automatic cleanup (recommended)
+
+02-Nettoyage-Interactif
+    Manual mode (choose options)
+
+Each folder is standalone: copy only the one you need.
+Always run the .bat as Administrator.
+
+--- العربية ---
+المجلدات
+--------
+01-Nettoyage-Automatique
+    تنظيف كامل تلقائي (موصى به)
+
+02-Nettoyage-Interactif
+    الوضع اليدوي (اختيار الخيارات)
+
+كل مجلد مستقل: انسخ فقط المجلد الذي تحتاجه.
+شغّل ملف .bat دائماً كمسؤول.

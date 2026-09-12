@@ -1,0 +1,997 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Lapwiz Setup"
+        Width="1040" Height="760"
+        MinWidth="880" MinHeight="640"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        ShowInTaskbar="True"
+        Background="{DynamicResource BrushHeroBg}"
+        FontFamily="Segoe UI Variable Text, Segoe UI"
+        Foreground="{DynamicResource BrushTextPrimary}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="App.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Margin="20,16,20,16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Brand -->
+        <DockPanel Grid.Row="0" Margin="0,0,0,12" LastChildFill="True">
+            <Border DockPanel.Dock="Left"
+                    Width="52" Height="52"
+                    CornerRadius="14"
+                    Background="Transparent"
+                    Margin="0,0,16,0"
+                    VerticalAlignment="Top"
+                    ClipToBounds="True">
+                <Image x:Name="BrandLogo"
+                       Width="52" Height="52"
+                       Stretch="Uniform"
+                       RenderOptions.BitmapScalingMode="HighQuality"/>
+            </Border>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Top" Margin="12,4,0,0">
+                <TextBlock x:Name="TxtLangLabel" Text="Langue" FontSize="12" VerticalAlignment="Center"
+                           Margin="0,0,8,0" Foreground="{DynamicResource BrushTextMuted}"/>
+                <ComboBox x:Name="CmbLanguage" Width="120" Height="32" VerticalContentAlignment="Center"
+                          FontSize="13" SelectedIndex="0">
+                    <ComboBoxItem Content="Francais" Tag="fr"/>
+                    <ComboBoxItem Content="English" Tag="en"/>
+                    <ComboBoxItem Content="العربية" Tag="ar"/>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Lapwiz Setup"
+                           FontFamily="Segoe UI Variable Display, Segoe UI"
+                           FontSize="30"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource BrushTextPrimary}"/>
+                <TextBlock x:Name="TxtHeaderSub" Text="Store · ADB Repair · Installateur · Expiro · Scripts · KVRT · Synaptic"
+                           Margin="0,4,0,0"
+                           FontSize="13"
+                           Foreground="{DynamicResource BrushTextMuted}"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- Corps : onglets + journal console a droite (LTR fixe pour rester a droite) -->
+        <DockPanel Grid.Row="1" LastChildFill="True" FlowDirection="LeftToRight">
+
+            <!-- JOURNAL CONSOLE (droite) -->
+            <Border DockPanel.Dock="Right" Width="380" MinWidth="320" Margin="14,0,0,0"
+                    Background="{DynamicResource BrushLogBg}" BorderBrush="#33465A58"
+                    BorderThickness="1" CornerRadius="16" Padding="0" ClipToBounds="True">
+                <DockPanel LastChildFill="True">
+                    <Border DockPanel.Dock="Top" Padding="14,12"
+                            Background="{DynamicResource BrushLogHeaderBg}"
+                            BorderBrush="#22465A58" BorderThickness="0,0,0,1">
+                        <DockPanel LastChildFill="True">
+                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left" VerticalAlignment="Center">
+                                <Border Width="8" Height="8" CornerRadius="4" Margin="0,0,10,0"
+                                        Background="{DynamicResource BrushLogSuccess}" VerticalAlignment="Center"/>
+                                <TextBlock Text="&#xE756;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="14"
+                                           Foreground="{DynamicResource BrushLogTag}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock x:Name="TxtConsoleTitle" Text="Journal" FontSize="13" FontWeight="SemiBold"
+                                           Foreground="{DynamicResource BrushLogTag}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock x:Name="TxtLogHint" Text="live"
+                                           FontSize="11" VerticalAlignment="Center" Margin="0,0,10,0"
+                                           Foreground="{DynamicResource BrushLogMuted}"/>
+                                <Button x:Name="BtnClearConsole" Style="{DynamicResource LogGhostButton}"
+                                        Content="Effacer"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+                    <RichTextBox x:Name="TxtLog" IsReadOnly="True"
+                                 VerticalScrollBarVisibility="Auto"
+                                 HorizontalScrollBarVisibility="Disabled"
+                                 IsDocumentEnabled="True" BorderThickness="0" Background="Transparent"
+                                 Foreground="{DynamicResource BrushLogText}"
+                                 CaretBrush="{DynamicResource BrushLogTag}"
+                                 FontFamily="Cascadia Mono, Consolas, Courier New"
+                                 FontSize="12" Padding="12,10"
+                                 AcceptsReturn="True">
+                        <FlowDocument PagePadding="0" TextAlignment="Left" LineHeight="18"/>
+                    </RichTextBox>
+                </DockPanel>
+            </Border>
+
+            <TabControl x:Name="MainTabs" Background="Transparent" BorderThickness="0" Padding="0">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Padding" Value="16,8"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="Foreground" Value="{DynamicResource BrushTextMuted}"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border x:Name="tabBd" Background="Transparent" BorderThickness="0,0,0,2"
+                                        BorderBrush="Transparent" Padding="{TemplateBinding Padding}" Margin="0,0,8,0">
+                                    <ContentPresenter ContentSource="Header" HorizontalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="tabBd" Property="BorderBrush" Value="{DynamicResource BrushAccent}"/>
+                                        <Setter Property="Foreground" Value="{DynamicResource BrushAccent}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Foreground" Value="{DynamicResource BrushTextPrimary}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+
+            <!-- TAB 1: Store — catalogue d'applications uniquement -->
+            <TabItem x:Name="TabStore">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="10" Height="10" CornerRadius="5" Background="{DynamicResource BrushTabStore}"
+                                Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="&#xE71D;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TxtTabStore" Text="Store" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="0,12,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Toolbar : selection + Installer -->
+                    <DockPanel Grid.Row="0" Margin="0,0,0,10" LastChildFill="False">
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                            <Button x:Name="BtnSelectAll" Style="{DynamicResource GhostButton}" Margin="0,0,8,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE73A;" Style="{DynamicResource IconGlyph}" Margin="0,0,8,0" Foreground="{DynamicResource BrushAccent}"/>
+                                    <TextBlock x:Name="TxtBtnSelectAll" Text="Tout selectionner" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="BtnSelectNone" Style="{DynamicResource GhostButton}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE739;" Style="{DynamicResource IconGlyph}" Margin="0,0,8,0" Foreground="{DynamicResource BrushTextMuted}"/>
+                                    <TextBlock x:Name="TxtBtnSelectNone" Text="Tout deselectionner" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                        <Button x:Name="BtnInstall" Style="{DynamicResource PrimaryButton}" MinWidth="148" DockPanel.Dock="Right">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE896;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16"
+                                           Foreground="{DynamicResource BrushOnAccent}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock x:Name="TxtBtnInstall" Text="Installer" VerticalAlignment="Center" Foreground="{DynamicResource BrushOnAccent}" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+
+                    <!-- Ajouter une app -->
+                    <Expander x:Name="ExpAddApp" Grid.Row="1" Style="{DynamicResource ModernExpander}" IsExpanded="False" Margin="0,0,0,10">
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE710;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="14"
+                                           Foreground="{DynamicResource BrushAccent}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock x:Name="TxtExpAddApp" Text="Ajouter une application" FontWeight="SemiBold" FontSize="13" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="TxtExpAddAppHint" Text="winget · fichier local · catalogue perso" FontSize="12" Margin="10,0,0,0"
+                                           Foreground="{DynamicResource BrushTextMuted}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Expander.Header>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="TxtAddAppQuery"
+                                         Grid.Column="0"
+                                         Height="34"
+                                         VerticalContentAlignment="Center"
+                                         Padding="10,4"
+                                         FontSize="13"
+                                         ToolTip="Nom (ex. Cursor) ou ID winget (ex. Anysphere.Cursor)"/>
+                                <Button x:Name="BtnSearchApp" Grid.Column="1" Style="{DynamicResource GhostButton}"
+                                        Margin="8,0,0,0" MinWidth="110" Padding="12,8">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE721;" Style="{DynamicResource IconGlyph}" Margin="0,0,8,0"
+                                                   Foreground="{DynamicResource BrushAccent}"/>
+                                        <TextBlock x:Name="TxtBtnSearchApp" Text="Rechercher" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="BtnAddLocalApp" Grid.Column="2" Style="{DynamicResource GhostButton}"
+                                        Margin="8,0,0,0" MinWidth="120" Padding="12,8"
+                                        ToolTip="Ajouter un EXE/MSI local (icone extraite automatiquement)">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE8B7;" Style="{DynamicResource IconGlyph}" Margin="0,0,8,0"
+                                                   Foreground="{DynamicResource BrushAccentSoft}"/>
+                                        <TextBlock x:Name="TxtBtnAddLocalApp" Text="Fichier local" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                                <ComboBox x:Name="CmbAddCategory" Grid.Column="3" Width="140" Height="34"
+                                          Margin="8,0,0,0" VerticalContentAlignment="Center"
+                                          SelectedIndex="4">
+                                    <ComboBoxItem Content="Utilitaires"/>
+                                    <ComboBoxItem Content="Developpement"/>
+                                    <ComboBoxItem Content="Mobile"/>
+                                    <ComboBoxItem Content=".NET"/>
+                                    <ComboBoxItem Content="Autres"/>
+                                </ComboBox>
+                                <Button x:Name="BtnAddApp" Grid.Column="4" Style="{DynamicResource PrimaryButton}"
+                                        Margin="8,0,0,0" MinWidth="100" Padding="12,8" IsEnabled="False">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE710;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="14"
+                                                   Foreground="{DynamicResource BrushOnAccent}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                        <TextBlock x:Name="TxtBtnAddApp" Text="Ajouter" VerticalAlignment="Center" Foreground="{DynamicResource BrushOnAccent}"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="BtnRemoveUserApp" Grid.Column="5" Style="{DynamicResource GhostButton}"
+                                        Margin="8,0,0,0" MinWidth="100" Padding="12,8" IsEnabled="False"
+                                        ToolTip="Retirer l'app selectionnee de la liste (perso = suppression ; officiel = masquage)">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE74D;" Style="{DynamicResource IconGlyph}" Margin="0,0,8,0"
+                                                   Foreground="{DynamicResource BrushDanger}"/>
+                                        <TextBlock x:Name="TxtBtnRemoveUserApp" Text="Retirer" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                            <ListBox x:Name="LstWingetHits" Margin="0,8,0,0" MaxHeight="120"
+                                     Visibility="Collapsed"
+                                     BorderBrush="{DynamicResource BrushBorderSubtle}"
+                                     Background="{DynamicResource BrushBgPanel}"
+                                     DisplayMemberPath="Display"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <!-- Grille applications (style Store) -->
+                    <Border Grid.Row="2" Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                            BorderThickness="1" CornerRadius="16" Padding="2">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="14,12"
+                                      HorizontalScrollBarVisibility="Disabled">
+                            <StackPanel x:Name="PackageList"/>
+                        </ScrollViewer>
+                    </Border>
+
+                    <StackPanel Grid.Row="3" Margin="0,10,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="&#xE9F9;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="14"
+                                       Foreground="{DynamicResource BrushAccent}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                            <TextBlock x:Name="TxtStatus" Grid.Column="1" Text="Pret." FontSize="13"
+                                       Foreground="{DynamicResource BrushTextMuted}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="TxtProgress" Grid.Column="2" Text="0 %" FontSize="13" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource BrushAccent}" Margin="12,0,0,0"/>
+                        </Grid>
+                        <ProgressBar x:Name="ProgressBar" Height="10" Margin="0,8,0,0" Minimum="0" Maximum="100" Value="0"
+                                     Background="{DynamicResource BrushBgElevated}" Foreground="{DynamicResource BrushAccent}" BorderThickness="0"/>
+                        <TextBlock x:Name="TxtStepDetail" Margin="0,4,0,0" FontSize="12" Foreground="{DynamicResource BrushTextMuted}" Text=""/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 2: Installateur — reparation systeme (msiexec / DISM / ADB) -->
+            <TabItem x:Name="TabInstall">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="10" Height="10" CornerRadius="5" Background="{DynamicResource BrushTabInstall}"
+                                Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="&#xE90F;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TxtTabInstall" Text="Installateur" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="0,12,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                            BorderThickness="1" CornerRadius="14" Padding="20" Margin="0,0,0,14">
+                        <StackPanel>
+                            <TextBlock x:Name="TxtRepairTitle" Text="Reparation Windows Installer" FontSize="20" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource BrushTextPrimary}"/>
+                            <TextBlock x:Name="TxtRepairBody" Text="msiserver local, puis DISM RestoreHealth depuis les serveurs Microsoft (Windows Update), puis SFC."
+                                       Margin="0,6,0,0" FontSize="13" TextWrapping="Wrap"
+                                       Foreground="{DynamicResource BrushTextMuted}"/>
+                            <CheckBox x:Name="ChkRepairFirst" Content="Reparer msiexec avant chaque install (Store)"
+                                      IsChecked="False" Margin="0,16,0,0"
+                                      Foreground="{DynamicResource BrushTextMuted}"
+                                      ToolTip="Utile si les MSI echouent (code 1601 / msiserver). Laissez decoché en usage normal."/>
+                            <WrapPanel Margin="0,16,0,0">
+                                <Button x:Name="BtnRepairMsiexec" Style="{DynamicResource PrimaryButton}" Margin="0,0,10,8" MinWidth="220">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE90F;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16"
+                                                   Foreground="{DynamicResource BrushOnAccent}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                        <TextBlock x:Name="TxtBtnRepairMsiexec" Text="Reparer msiexec + DISM" VerticalAlignment="Center"
+                                                   Foreground="{DynamicResource BrushOnAccent}" FontWeight="SemiBold"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button x:Name="BtnAdbPath" Style="{DynamicResource GhostButton}" Margin="0,0,0,8" MinWidth="160">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE8EA;" Style="{DynamicResource IconGlyph}" Margin="0,0,8,0" Foreground="{DynamicResource BrushAccent}"/>
+                                        <TextBlock x:Name="TxtBtnAdbPath" Text="PATH ADB auto" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                            </WrapPanel>
+                            <TextBlock x:Name="TxtDismHint" Text="DISM peut durer 10 a 40 minutes. Internet requis. Ne fermez pas Lapwiz pendant l'operation."
+                                       FontSize="12" TextWrapping="Wrap" Margin="0,4,0,0"
+                                       Foreground="{DynamicResource BrushTextMuted}"/>
+                            <TextBlock x:Name="TxtInstallLogHint" Text="Le detail live s'affiche dans le journal a droite."
+                                       FontSize="12" TextWrapping="Wrap" Margin="0,10,0,0"
+                                       Foreground="{DynamicResource BrushAccentSoft}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="1" Background="{DynamicResource BrushBgElevated}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                            BorderThickness="1" CornerRadius="12" Padding="16" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock x:Name="TxtCatalogHintTitle" Text="Catalogue d'apps" FontWeight="SemiBold" FontSize="14"
+                                       Foreground="{DynamicResource BrushTextPrimary}"/>
+                            <TextBlock x:Name="TxtCatalogHintBody" Text="Les applications se gerent dans l'onglet Store (grille moderne, filtre, install winget)."
+                                       FontSize="12" Margin="0,4,0,0" TextWrapping="Wrap"
+                                       Foreground="{DynamicResource BrushTextMuted}"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB: SynapticRemover (independant) -->
+            <TabItem x:Name="TabSynaptic">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="10" Height="10" CornerRadius="5" Background="{DynamicResource BrushTabSynaptic}"
+                                Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="&#xE83B;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TxtTabSynaptic" Text="SynapticRemover" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="0,12,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                            BorderThickness="1" CornerRadius="12" Padding="18" Margin="0,0,0,12">
+                        <StackPanel>
+                            <TextBlock x:Name="TxtSynapticTitle" Text="SynapticRemover" FontSize="20" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource BrushTextPrimary}"/>
+                            <TextBlock x:Name="TxtSynapticBody" Text="Outil independant de nettoyage (caches, volumes, reparation). Inclus dans Lapwiz Setup."
+                                       Margin="0,6,0,0" FontSize="13" TextWrapping="Wrap"
+                                       Foreground="{DynamicResource BrushTextMuted}"/>
+                            <TextBlock x:Name="TxtSynapticPath" Margin="0,10,0,0" FontSize="12" TextWrapping="Wrap"
+                                       FontFamily="Cascadia Mono, Consolas" Foreground="{DynamicResource BrushAccent}"/>
+                            <TextBlock x:Name="TxtSynapticStatus" Margin="0,6,0,0" FontSize="13" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource BrushAccentSoft}" Text="Verification..."/>
+                        </StackPanel>
+                    </Border>
+
+                    <WrapPanel Grid.Row="1" Margin="0,0,0,12">
+                        <Button x:Name="BtnSynapticAuto" Style="{DynamicResource PrimaryButton}" Margin="0,0,10,8" MinWidth="200">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE768;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="16"
+                                           Foreground="{DynamicResource BrushOnAccent}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock x:Name="TxtBtnSynapticAuto" Text="Nettoyage automatique" VerticalAlignment="Center" Foreground="{DynamicResource BrushOnAccent}"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnSynapticInteractive" Style="{DynamicResource GhostButton}" Margin="0,0,10,8" MinWidth="200">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE90F;" Style="{DynamicResource IconGlyph}" Margin="0,0,8,0" Foreground="{DynamicResource BrushAccent}"/>
+                                <TextBlock x:Name="TxtBtnSynapticInteractive" Text="Mode interactif" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnSynapticOpenFolder" Style="{DynamicResource GhostButton}" Margin="0,0,10,8">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE8B7;" Style="{DynamicResource IconGlyph}" Margin="0,0,8,0" Foreground="{DynamicResource BrushTextMuted}"/>
+                                <TextBlock x:Name="TxtBtnSynapticOpenFolder" Text="Ouvrir dossier" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnSynapticReports" Style="{DynamicResource GhostButton}" Margin="0,0,10,8">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE8A5;" Style="{DynamicResource IconGlyph}" Margin="0,0,8,0" Foreground="{DynamicResource BrushTextMuted}"/>
+                                <TextBlock x:Name="TxtBtnSynapticReports" Text="Rapports" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BtnSynapticVerify" Style="{DynamicResource GhostButton}" Margin="0,0,10,8">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE73E;" Style="{DynamicResource IconGlyph}" Margin="0,0,8,0" Foreground="{DynamicResource BrushAccentSoft}"/>
+                                <TextBlock x:Name="TxtBtnSynapticVerify" Text="Verifier" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </WrapPanel>
+
+                    <TextBlock x:Name="TxtSynapticHint" Grid.Row="2" Text="Le nettoyage s'ouvre dans une console Admin separee. Le suivi Lapwiz est dans le journal a droite."
+                               FontSize="12" Foreground="{DynamicResource BrushTextMuted}" Margin="0,0,0,8" TextWrapping="Wrap"/>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB: Guide Expiro — wizard moderne -->
+            <TabItem x:Name="TabExpiro">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="10" Height="10" CornerRadius="5" Background="{DynamicResource BrushTabExpiro}"
+                                Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="&#xE730;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TxtTabExpiro" Text="Guide Expiro" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- En-tete compact + progression -->
+                    <Border Grid.Row="0" Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                            BorderThickness="1" CornerRadius="14" Padding="16,14" Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock x:Name="TxtExpiroTitle" Text="Parcours Expiro"
+                                           FontFamily="Segoe UI Variable Display, Segoe UI"
+                                           FontSize="20" FontWeight="SemiBold"
+                                           Foreground="{DynamicResource BrushTextPrimary}"/>
+                                <TextBlock x:Name="TxtExpiroSubtitle" Text="6 phases · LiveDisk → outils → Defender → apps. Une etape a la fois."
+                                           Margin="0,4,0,0" FontSize="12" TextWrapping="Wrap"
+                                           Foreground="{DynamicResource BrushTextMuted}"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" MinWidth="140">
+                                <TextBlock x:Name="ExpiroProgressLabel" Text="Phase 1 / 6" FontSize="11"
+                                           HorizontalAlignment="Right" Foreground="{DynamicResource BrushTextMuted}" Margin="0,0,0,6"/>
+                                <Border Height="6" CornerRadius="3" Background="{DynamicResource BrushBgElevated}" Width="220" HorizontalAlignment="Right">
+                                    <Border x:Name="ExpiroProgressFill" Width="36" Height="6" CornerRadius="3"
+                                            Background="{DynamicResource BrushAccent}" HorizontalAlignment="Left"/>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Corps : rail + contenu -->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="210"/>
+                            <ColumnDefinition Width="12"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                                BorderThickness="1" CornerRadius="14" Padding="8">
+                            <DockPanel LastChildFill="True">
+                                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,8,0,4">
+                                    <Button x:Name="BtnExpiroPrev" Style="{DynamicResource GhostButton}" Padding="12,6" Margin="0,0,6,0" Content="←"/>
+                                    <Button x:Name="BtnExpiroNext" Style="{DynamicResource PrimaryButton}" Padding="12,6" Content="→"/>
+                                </StackPanel>
+                                <ListBox x:Name="ExpiroPhaseList" Background="Transparent" BorderThickness="0"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource BrushTextPrimary}"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListBoxItem">
+                                                        <Border x:Name="bd" Background="Transparent" CornerRadius="10" Padding="2" Margin="0,0,0,2">
+                                                            <ContentPresenter/>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter TargetName="bd" Property="Background" Value="{DynamicResource BrushBgElevated}"/>
+                                                            </Trigger>
+                                                            <Trigger Property="IsSelected" Value="True">
+                                                                <Setter TargetName="bd" Property="Background" Value="{DynamicResource BrushIconChip}"/>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                </ListBox>
+                            </DockPanel>
+                        </Border>
+
+                        <Border Grid.Column="2" Background="{DynamicResource BrushLogBg}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                                BorderThickness="1" CornerRadius="14" Padding="2">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="16,12">
+                                <StackPanel x:Name="ExpiroStepHost"/>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+
+                    <Border Grid.Row="2" Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                            BorderThickness="1" CornerRadius="14" Padding="12" Margin="0,10,0,0">
+                        <DockPanel LastChildFill="False">
+                            <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" FontSize="12" TextWrapping="Wrap"
+                                       Foreground="{DynamicResource BrushTextMuted}"
+                                       x:Name="TxtExpiroFooter" Text="Scripts automatises → onglet Scripts. Liens docs :"/>
+                            <WrapPanel Margin="12,0,0,0">
+                                <Button x:Name="BtnExpiroWinTips" Style="{DynamicResource GhostButton}" Margin="0,0,6,0" Padding="10,6" Content="WinTips"/>
+                                <Button x:Name="BtnExpiroTrend" Style="{DynamicResource GhostButton}" Margin="0,0,6,0" Padding="10,6" Content="Trend"/>
+                                <Button x:Name="BtnExpiroCopyGuide" Style="{DynamicResource GhostButton}" Margin="0,0,6,0" Padding="10,6" Content="Copier checklist"/>
+                            </WrapPanel>
+                        </DockPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB: Scripts automatises (independant) -->
+            <TabItem x:Name="TabScripts">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="10" Height="10" CornerRadius="5" Background="{DynamicResource BrushTabScripts}"
+                                Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="&#xE756;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TxtTabScripts" Text="Scripts" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                            BorderThickness="1" CornerRadius="14" Padding="16,14" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock x:Name="TxtScriptsTitle" Text="Scripts automatises"
+                                       FontFamily="Segoe UI Variable Display, Segoe UI"
+                                       FontSize="20" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource BrushTextPrimary}"/>
+                            <TextBlock x:Name="TxtScriptsSubtitle" Text="Audit Trend, correction Startup / services, artefacts, KVRT, Malwarebytes, Defender. Admin requis. Les guides restent dans Guide Expiro et KVRT. Suivi dans le journal a droite."
+                                       Margin="0,6,0,0" FontSize="13" TextWrapping="Wrap"
+                                       Foreground="{DynamicResource BrushTextMuted}"/>
+                        </StackPanel>
+                    </Border>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <!-- Groupe Trend -->
+                            <Border Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                                    BorderThickness="1" CornerRadius="14" Padding="14" Margin="0,0,0,10">
+                                <StackPanel>
+                                    <TextBlock x:Name="TxtScriptsGroupTrend" Text="Expiro / Trend Micro" FontSize="15" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource BrushTextPrimary}"/>
+                                    <TextBlock x:Name="TxtScriptsGroupTrendDesc" Text="Registre Startup, services AV stoppes par Expiro, artefacts LocalAppData / ProgramData."
+                                               Margin="0,4,0,10" FontSize="12" TextWrapping="Wrap"
+                                               Foreground="{DynamicResource BrushTextMuted}"/>
+                                    <WrapPanel>
+                                        <Button x:Name="BtnAutoAudit" Style="{DynamicResource PrimaryButton}" Margin="0,0,8,8" Padding="14,10" Content="Audit Trend"/>
+                                        <Button x:Name="BtnAutoStartup" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="14,10" Content="Corriger Startup"/>
+                                        <Button x:Name="BtnAutoServices" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="14,10" Content="Relancer services AV"/>
+                                        <Button x:Name="BtnAutoArtifacts" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="14,10" Content="Supprimer artefacts"/>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Groupe scans -->
+                            <Border Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                                    BorderThickness="1" CornerRadius="14" Padding="14" Margin="0,0,0,10">
+                                <StackPanel>
+                                    <TextBlock x:Name="TxtScriptsGroupScans" Text="Scans &amp; outils" FontSize="15" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource BrushTextPrimary}"/>
+                                    <TextBlock x:Name="TxtScriptsGroupScansDesc" Text="KVRT (~120 Mo), Malwarebytes (winget), scan complet Defender."
+                                               Margin="0,4,0,10" FontSize="12" TextWrapping="Wrap"
+                                               Foreground="{DynamicResource BrushTextMuted}"/>
+                                    <WrapPanel>
+                                        <Button x:Name="BtnAutoKvrtDownload" Style="{DynamicResource PrimaryButton}" Margin="0,0,8,8" Padding="14,10" Content="Telecharger KVRT"/>
+                                        <Button x:Name="BtnAutoKvrtRun" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="14,10" Content="Lancer KVRT"/>
+                                        <Button x:Name="BtnAutoKvrtFolder" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="14,10" Content="Dossier KVRT"/>
+                                        <Button x:Name="BtnAutoMbam" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="14,10" Content="Installer / lancer MBAM"/>
+                                        <Button x:Name="BtnAutoDefender" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="14,10" Content="Scan Defender complet"/>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Groupe liens -->
+                            <Border Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                                    BorderThickness="1" CornerRadius="14" Padding="14" Margin="0,0,0,0">
+                                <StackPanel>
+                                    <TextBlock x:Name="TxtScriptsGroupLinks" Text="Ouvrir (telechargement / docs)" FontSize="15" FontWeight="SemiBold"
+                                               Foreground="{DynamicResource BrushTextPrimary}"/>
+                                    <TextBlock x:Name="TxtScriptsGroupLinksDesc" Text="Liens officiels — pas d'automatisation locale."
+                                               Margin="0,4,0,10" FontSize="12" TextWrapping="Wrap"
+                                               Foreground="{DynamicResource BrushTextMuted}"/>
+                                    <WrapPanel>
+                                        <Button x:Name="BtnAutoDrWeb" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="12,8" Content="Dr.Web LiveDisk"/>
+                                        <Button x:Name="BtnAutoRogueKiller" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="12,8" Content="RogueKiller"/>
+                                        <Button x:Name="BtnAutoAdw" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="12,8" Content="AdwCleaner"/>
+                                        <Button x:Name="BtnAutoFrst" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="12,8" Content="FRST"/>
+                                        <Button x:Name="BtnAutoMbamSite" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="12,8" Content="Site Malwarebytes"/>
+                                        <Button x:Name="BtnAutoKvrtHowto" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="12,8" Content="Howto KVRT"/>
+                                        <Button x:Name="BtnAutoWinTips" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="12,8" Content="WinTips"/>
+                                        <Button x:Name="BtnAutoTrend" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="12,8" Content="Trend EXPIRO.AA"/>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB: Kaspersky Virus Removal Tool -->
+            <TabItem x:Name="TabKvrt">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="10" Height="10" CornerRadius="5" Background="{DynamicResource BrushTabKvrt}"
+                                Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="&#xE83D;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TxtTabKvrt" Text="KVRT" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                            BorderThickness="1" CornerRadius="14" Padding="16,14" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock x:Name="TxtKvrtTitle" Text="Kaspersky Virus Removal Tool"
+                                       FontFamily="Segoe UI Variable Display, Segoe UI"
+                                       FontSize="20" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource BrushTextPrimary}"/>
+                            <TextBlock x:Name="TxtKvrtSubtitle" Text="Scan one-shot gratuit : detecte malware / adware connus. Pas de protection permanente — telecharge a nouveau pour des bases a jour, puis reactive Defender."
+                                       Margin="0,6,0,0" FontSize="13" TextWrapping="Wrap"
+                                       Foreground="{DynamicResource BrushTextMuted}"/>
+                            <TextBlock x:Name="TxtKvrtLogTitle" Margin="0,8,0,0" FontSize="11" TextWrapping="Wrap"
+                                       Foreground="{DynamicResource BrushAccentSoft}"
+                                       Text="Fichier : %LocalAppData%\Lapwiz\tools\KVRT.exe · journal a droite"/>
+                        </StackPanel>
+                    </Border>
+
+                    <WrapPanel Grid.Row="1" Margin="0,0,0,10">
+                        <Button x:Name="BtnKvrtHowto" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="14,10"
+                                Content="Howto Kaspersky"/>
+                        <Button x:Name="BtnKvrtOfficial" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="14,10"
+                                Content="Page officielle"/>
+                        <Button x:Name="BtnKvrtCopyGuide" Style="{DynamicResource GhostButton}" Margin="0,0,8,8" Padding="14,10"
+                                Content="Copier guide"/>
+                        <TextBlock VerticalAlignment="Center" Margin="8,0,0,8" FontSize="12" TextWrapping="Wrap"
+                                   Foreground="{DynamicResource BrushTextMuted}"
+                                   x:Name="TxtKvrtHint" Text="Telecharger / lancer → onglet Scripts"/>
+                    </WrapPanel>
+
+                    <Border Grid.Row="2" Background="{DynamicResource BrushLogBg}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                            BorderThickness="1" CornerRadius="14" Padding="2">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="16,12">
+                            <StackPanel x:Name="KvrtGuideFeed"/>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB: ADB Repair -->
+            <TabItem x:Name="TabAdbRepair">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Border Width="10" Height="10" CornerRadius="5" Background="{DynamicResource BrushTabAdb}"
+                                Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="&#xE8AB;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock x:Name="TxtTabAdb" Text="ADB Repair" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid Margin="0,8,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- En-tete + guide (icone i) -->
+                    <DockPanel Grid.Row="0" Margin="0,0,0,8" LastChildFill="True">
+                        <Button x:Name="BtnAdbGuideInfo" DockPanel.Dock="Right"
+                                Width="34" Height="34" Padding="0" Margin="10,0,0,0"
+                                Style="{DynamicResource GhostButton}"
+                                ToolTip="Guide ADB Repair — details de A a Z"
+                                VerticalAlignment="Center">
+                            <Border Width="28" Height="28" CornerRadius="14"
+                                    Background="{DynamicResource BrushTabAdb}">
+                                <TextBlock Text="&#xE946;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                           FontSize="14" Foreground="{DynamicResource BrushOnAccent}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </Button>
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock x:Name="TxtAdbGuideHeader" Text="ADB / scrcpy Repair"
+                                       FontSize="15" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource BrushTextPrimary}"/>
+                            <TextBlock x:Name="TxtAdbGuideHint" Text="Cliquez sur i pour le guide detaille (role et fonctionnement)"
+                                       FontSize="11" Foreground="{DynamicResource BrushTextMuted}"/>
+                        </StackPanel>
+                    </DockPanel>
+
+                    <!-- Actions : packs+scan en haut, 3+4 en barres completes -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                                  Margin="0,0,0,8" MaxHeight="240">
+                        <StackPanel>
+                            <Grid Margin="0,0,0,6">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- 1 Packs -->
+                                <Border Grid.Column="0" Margin="0,0,4,0" Background="{DynamicResource BrushBgElevated}"
+                                        BorderBrush="{DynamicResource BrushBorderSubtle}" BorderThickness="1"
+                                        CornerRadius="10" Padding="10,8">
+                                    <StackPanel>
+                                        <DockPanel LastChildFill="True" Margin="0,0,0,6">
+                                            <Border DockPanel.Dock="Left" Width="22" Height="22" CornerRadius="11"
+                                                    Background="{DynamicResource BrushTabAdb}" Margin="0,0,8,0">
+                                                <TextBlock Text="1" FontWeight="Bold" FontSize="11"
+                                                           Foreground="{DynamicResource BrushOnAccent}"
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <TextBlock x:Name="TxtAdbStep1Title" Text="Packs clean" FontWeight="SemiBold" FontSize="12"
+                                                       VerticalAlignment="Center"
+                                                       Foreground="{DynamicResource BrushTextPrimary}"/>
+                                        </DockPanel>
+                                        <TextBlock x:Name="TxtAdbStep1Desc" Text="Desktop platform-tools + scrcpy, ou telecharger"
+                                                   FontSize="10" Foreground="{DynamicResource BrushTextMuted}"
+                                                   TextWrapping="Wrap" Margin="0,0,0,6"/>
+                                        <WrapPanel>
+                                            <Button x:Name="BtnAdbLearnPacks" Style="{DynamicResource PrimaryButton}"
+                                                    Margin="0,0,6,2" Padding="10,5" FontSize="11"
+                                                    Content="Apprendre packs Desktop"/>
+                                            <Button x:Name="BtnAdbFetchClean" Style="{DynamicResource GhostButton}"
+                                                    Margin="0,0,0,2" Padding="10,5" FontSize="11"
+                                                    Content="Telecharger clean"/>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- 2 Scan -->
+                                <Border Grid.Column="1" Margin="4,0,0,0" Background="{DynamicResource BrushBgElevated}"
+                                        BorderBrush="{DynamicResource BrushBorderSubtle}" BorderThickness="1"
+                                        CornerRadius="10" Padding="10,8">
+                                    <StackPanel>
+                                        <DockPanel LastChildFill="True" Margin="0,0,0,6">
+                                            <Border DockPanel.Dock="Left" Width="22" Height="22" CornerRadius="11"
+                                                    Background="{DynamicResource BrushTabAdb}" Margin="0,0,8,0">
+                                                <TextBlock Text="2" FontWeight="Bold" FontSize="11"
+                                                           Foreground="{DynamicResource BrushOnAccent}"
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <TextBlock x:Name="TxtAdbStep2Title" Text="Scanner" FontWeight="SemiBold" FontSize="12"
+                                                       VerticalAlignment="Center"
+                                                       Foreground="{DynamicResource BrushTextPrimary}"/>
+                                        </DockPanel>
+                                        <TextBlock x:Name="TxtAdbStep2Desc" Text="Dossier, rapide ou disque"
+                                                   FontSize="10" Foreground="{DynamicResource BrushTextMuted}"
+                                                   Margin="0,0,0,6"/>
+                                        <WrapPanel Margin="0,0,0,4">
+                                            <Button x:Name="BtnAdbScanFolder" Style="{DynamicResource GhostButton}"
+                                                    Margin="0,0,4,2" Padding="8,4" FontSize="11"
+                                                    Content="Choisir dossier"/>
+                                            <Button x:Name="BtnAdbScanCommon" Style="{DynamicResource GhostButton}"
+                                                    Margin="0,0,4,2" Padding="8,4" FontSize="11"
+                                                    Content="Scan rapide"/>
+                                            <Button x:Name="BtnAdbScanDrive" Style="{DynamicResource GhostButton}"
+                                                    Margin="0,0,0,2" Padding="8,4" FontSize="11"
+                                                    Content="Scan disque…"/>
+                                        </WrapPanel>
+                                        <DockPanel LastChildFill="True">
+                                            <TextBlock x:Name="TxtAdbHistoryLabel" DockPanel.Dock="Left"
+                                                       Text="Recents" FontSize="10" VerticalAlignment="Center"
+                                                       Margin="0,0,6,0" Foreground="{DynamicResource BrushTextMuted}"/>
+                                            <Button x:Name="BtnAdbScanRecent" DockPanel.Dock="Right"
+                                                    Style="{DynamicResource GhostButton}" Margin="6,0,0,0" Padding="8,3"
+                                                    FontSize="11" Content="Rescanner" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="CmbAdbScanHistory" Height="26" FontSize="11"
+                                                      VerticalContentAlignment="Center"
+                                                      ToolTip="Historique des derniers dossiers / disques scannes"/>
+                                        </DockPanel>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+
+                            <!-- 3 Reparer (barre pleine largeur) -->
+                            <Border Margin="0,0,0,6" Background="{DynamicResource BrushBgElevated}"
+                                    BorderBrush="{DynamicResource BrushBorderSubtle}" BorderThickness="1"
+                                    CornerRadius="10" Padding="10,8">
+                                <DockPanel LastChildFill="True">
+                                    <Border DockPanel.Dock="Left" Width="22" Height="22" CornerRadius="11"
+                                            Background="{DynamicResource BrushTabAdb}" Margin="0,0,10,0"
+                                            VerticalAlignment="Center">
+                                        <TextBlock Text="3" FontWeight="Bold" FontSize="11"
+                                                   Foreground="{DynamicResource BrushOnAccent}"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <Button x:Name="BtnAdbRepairAll" DockPanel.Dock="Right"
+                                            Style="{DynamicResource PrimaryButton}" Padding="14,6" Margin="10,0,0,0"
+                                            FontSize="11" Content="Tout reparer" VerticalAlignment="Center"
+                                            MinWidth="120"/>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock x:Name="TxtAdbStep3Title" Text="Reparer" FontWeight="SemiBold" FontSize="12"
+                                                   Foreground="{DynamicResource BrushTextPrimary}"/>
+                                        <TextBlock x:Name="TxtAdbStep3Desc" Text="Backup → clean + SHA-256 (cochez les fichiers ci-dessous)"
+                                                   FontSize="10" Foreground="{DynamicResource BrushTextMuted}"
+                                                   TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </DockPanel>
+                            </Border>
+
+                            <!-- 4 PATH / quarantaine (barre pleine largeur) -->
+                            <Border Background="{DynamicResource BrushBgElevated}"
+                                    BorderBrush="{DynamicResource BrushBorderSubtle}" BorderThickness="1"
+                                    CornerRadius="10" Padding="10,8">
+                                <DockPanel LastChildFill="True">
+                                    <Border DockPanel.Dock="Left" Width="22" Height="22" CornerRadius="11"
+                                            Background="{DynamicResource BrushTabAdb}" Margin="0,0,10,0"
+                                            VerticalAlignment="Center">
+                                        <TextBlock Text="4" FontWeight="Bold" FontSize="11"
+                                                   Foreground="{DynamicResource BrushOnAccent}"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <WrapPanel DockPanel.Dock="Right" VerticalAlignment="Center" Margin="10,0,0,0">
+                                        <Button x:Name="BtnAdbPathLapwiz" Style="{DynamicResource GhostButton}"
+                                                Margin="0,0,6,0" Padding="10,5" FontSize="11"
+                                                Content="PATH ADB Lapwiz"/>
+                                        <Button x:Name="BtnAdbOpenQuarantine" Style="{DynamicResource GhostButton}"
+                                                Padding="10,5" FontSize="11"
+                                                Content="Ouvrir dossier quarantaine"/>
+                                    </WrapPanel>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock x:Name="TxtAdbStep4Title" Text="PATH / quarantaine" FontWeight="SemiBold" FontSize="12"
+                                                   Foreground="{DynamicResource BrushTextPrimary}"/>
+                                        <TextBlock x:Name="TxtAdbStep4Desc" Text="PATH Lapwiz ou ouvrir le dossier de quarantaine"
+                                                   FontSize="10" Foreground="{DynamicResource BrushTextMuted}"
+                                                   TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </DockPanel>
+                            </Border>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- Progression -->
+                    <Border Grid.Row="2" x:Name="AdbProgressPanel" Margin="0,0,0,8"
+                            Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                            BorderThickness="1" CornerRadius="10" Padding="12,8" Visibility="Collapsed">
+                        <StackPanel>
+                            <DockPanel LastChildFill="True" Margin="0,0,0,6">
+                                <TextBlock x:Name="TxtAdbProgressEta" DockPanel.Dock="Right"
+                                           FontSize="11" FontWeight="SemiBold" VerticalAlignment="Center"
+                                           Foreground="{DynamicResource BrushTabAdb}" Text=""/>
+                                <TextBlock x:Name="TxtAdbProgressLabel" FontSize="11" FontWeight="SemiBold"
+                                           VerticalAlignment="Center" TextWrapping="Wrap"
+                                           Foreground="{DynamicResource BrushTextPrimary}"
+                                           Text="Progression"/>
+                            </DockPanel>
+                            <ProgressBar x:Name="AdbProgressBar" Height="8" Minimum="0" Maximum="100" Value="0"
+                                         IsIndeterminate="False"/>
+                            <DockPanel Margin="0,4,0,0" LastChildFill="True">
+                                <TextBlock x:Name="TxtAdbProgressPct" DockPanel.Dock="Right"
+                                           FontSize="10" VerticalAlignment="Center"
+                                           Foreground="{DynamicResource BrushAccentSoft}" Text="0 %"/>
+                                <TextBlock x:Name="TxtAdbProgressDetail" FontSize="10" TextWrapping="Wrap"
+                                           Foreground="{DynamicResource BrushTextMuted}" Text=""/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Resultats (prend tout l'espace restant) -->
+                    <Border Grid.Row="3" Background="{DynamicResource BrushLogBg}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                            BorderThickness="1" CornerRadius="12" Padding="6">
+                        <DockPanel LastChildFill="True">
+                            <DockPanel DockPanel.Dock="Top" Margin="8,4,8,6" LastChildFill="True">
+                                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0,0,0">
+                                    <Button x:Name="BtnAdbCheckAll" Style="{DynamicResource GhostButton}"
+                                            Margin="0,0,6,0" Padding="8,3" FontSize="11"
+                                            Content="Tout cocher"/>
+                                    <Button x:Name="BtnAdbUncheckAll" Style="{DynamicResource GhostButton}"
+                                            Margin="0,0,10,0" Padding="8,3" FontSize="11"
+                                            Content="Tout decocher"/>
+                                    <TextBlock x:Name="TxtAdbRepairSummary" FontSize="12"
+                                               VerticalAlignment="Center"
+                                               Foreground="{DynamicResource BrushAccentSoft}"
+                                               Text="Aucun scan"/>
+                                </StackPanel>
+                                <TextBlock FontSize="12" VerticalAlignment="Center"
+                                           Foreground="{DynamicResource BrushTextMuted}"
+                                           x:Name="TxtAdbResults" Text="Resultats (cochez les fichiers a remplacer)"/>
+                            </DockPanel>
+                            <TextBlock DockPanel.Dock="Bottom" FontSize="10" Margin="8,4,8,2" TextWrapping="Wrap"
+                                       Foreground="{DynamicResource BrushTextMuted}"
+                                       x:Name="TxtAdbLogTitle"
+                                       Text="Clean : %LocalAppData%\LapwizSetup\clean-tools · quarantaine : adb-quarantine · journal a droite"/>
+                            <ListBox x:Name="LstAdbRepairHits"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                        </DockPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        </DockPanel>
+
+        <!-- Toast dependances (premier lancement / PC sans runtime) -->
+        <Border x:Name="DepsToast" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed" Panel.ZIndex="160"
+                VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="0,0,0,4"
+                Background="{DynamicResource BrushToastBg}" CornerRadius="14" Padding="16,14"
+                BorderBrush="{DynamicResource BrushAccentSoft}" BorderThickness="1">
+            <DockPanel LastChildFill="True">
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
+                    <Button x:Name="BtnDepsDownload" Style="{DynamicResource PrimaryButton}" Margin="0,0,8,0" Padding="14,8"
+                            Content="Telecharger"/>
+                    <Button x:Name="BtnDepsOpenFolder" Style="{DynamicResource GhostButton}" Margin="0,0,8,0" Padding="12,8"
+                            Content="Dossier"/>
+                    <Button x:Name="BtnDepsDismiss" Style="{DynamicResource GhostButton}" Padding="12,8"
+                            Content="Plus tard"/>
+                </StackPanel>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock x:Name="TxtDepsToastTitle" Text="Dependances manquantes"
+                               FontWeight="SemiBold" FontSize="14"
+                               Foreground="{DynamicResource BrushToastFg}"/>
+                    <TextBlock x:Name="TxtDepsToastBody" Margin="0,4,0,0" FontSize="12" TextWrapping="Wrap"
+                               Foreground="{DynamicResource BrushAccentSoft}"
+                               Text="Des composants systeme manquent pour Lapwiz."/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Lightbox agrandissement images Expiro -->
+        <Grid x:Name="ExpiroLightbox" Grid.Row="0" Grid.RowSpan="2" Visibility="Collapsed" Panel.ZIndex="200">
+            <Border x:Name="ExpiroLightboxDim" Background="#E0121A1C" Cursor="Hand"/>
+            <Border Margin="28" MaxWidth="1100" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Background="{DynamicResource BrushBgPanel}" BorderBrush="{DynamicResource BrushBorderSubtle}"
+                    BorderThickness="1" CornerRadius="14" Padding="16" Cursor="Arrow">
+                <DockPanel LastChildFill="True">
+                    <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12" LastChildFill="True">
+                        <Button x:Name="BtnExpiroLightboxClose" DockPanel.Dock="Right"
+                                Style="{DynamicResource GhostButton}" Padding="10,4" Margin="12,0,0,0"
+                                Content="Fermer"/>
+                        <TextBlock x:Name="ExpiroLightboxCaption"
+                                   FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap"
+                                   VerticalAlignment="Center"
+                                   Foreground="{DynamicResource BrushTextPrimary}"/>
+                    </DockPanel>
+                    <TextBlock DockPanel.Dock="Bottom" Margin="0,10,0,0" FontSize="11"
+                               Foreground="{DynamicResource BrushTextMuted}"
+                               x:Name="TxtLightboxHint" Text="Clic hors image, Fermer ou Echap pour revenir."/>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                                  MaxHeight="620">
+                        <Image x:Name="ExpiroLightboxImage"
+                               Stretch="Uniform"
+                               HorizontalAlignment="Center"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Cursor="Hand"
+                               ToolTip="Cliquez pour fermer"/>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

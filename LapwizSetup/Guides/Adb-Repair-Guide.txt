@@ -1,0 +1,54 @@
+Lapwiz — Guide ADB / scrcpy Repair (A → Z)
+==========================================
+Ouvrir aussi via l'icone i dans l'onglet ADB Repair.
+
+A — Role
+  Detecter et remplacer adb.exe / AdbWin*.dll / scrcpy alteres.
+  Ne jamais toucher aux fichiers metier hors pack (DB, APK, configs).
+
+B — Packs clean (etape 1)
+  Apprendre : Bureau\platform-tools + scrcpy-win64-v4.1
+           → %LocalAppData%\LapwizSetup\clean-tools
+  Telecharger : Google platform-tools + GitHub scrcpy → meme cache
+  Source de reference SHA-256 pour scan et repair.
+
+C — Scanner (etape 2)
+  Choisir dossier | Scan rapide | Scan disque | Recents / Rescanner
+  Produit une liste Match / a reparer.
+
+D — Selection
+  Cocher les fichiers a traiter.
+  Boutons : Tout cocher / Tout decocher.
+
+E — Tout reparer (etape 3)
+  1. Recharge packs Bureau si presents
+  2. Sync dossier scrcpy = pack scrcpy + trio ADB Google
+  3. Sync dossier platform-tools = pack Google complet
+  4. Flux : backup quarantaine → delete → copie clean
+  5. Hors pack = intact
+  6. Verification SHA-256 (incoherences)
+
+F — PATH / quarantaine (etape 4)
+  PATH ADB Lapwiz : PATH utilisateur vers ADB Lapwiz
+  Ouvrir quarantaine : adb-quarantine\yyyyMMdd_HHmmss
+
+G — Rapport
+  Fenetre automatique en fin de repair + repair-report.txt
+
+H — ADB Google vs scrcpy
+  adb du ZIP scrcpy ≠ Google → Lapwiz force Google a cote de scrcpy
+
+I — Non touche
+  .db, .apk, langues, README metier, tout hors liste blanche pack
+
+J — Ordre recommande
+  Packs → Scanner → Cocher → Tout reparer → Rapport → (PATH)
+
+K — Journal
+  Progression + ETA ; journal detaille a droite de Lapwiz
+
+L — Chemins cles
+  Bureau\platform-tools
+  Bureau\scrcpy-win64-v4.1
+  %LocalAppData%\LapwizSetup\clean-tools
+  %LocalAppData%\LapwizSetup\adb-quarantine

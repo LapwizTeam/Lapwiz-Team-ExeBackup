@@ -1,0 +1,35 @@
+Kaspersky Virus Removal Tool (KVRT) — guide Lapwiz
+Sources :
+  https://support.kaspersky.com/kvrt2020/howto/15674
+  https://www.kaspersky.com/downloads/free-virus-removal-tool
+----------------------------------------------------------
+
+QU'EST-CE QUE C'EST
+- Outil gratuit de scan / desinfection Windows (one-shot)
+- Detecte malwares connus, adware et apps potentiellement dangereuses
+- PAS de mises a jour de bases en continu : re-telecharger pour etre a jour
+- PAS une protection temps reel : apres le scan, garde Defender (ou un AV)
+
+QUAND L'UTILISER
+- Apres LiveDisk / Safe Mode (Expiro, infections persistantes)
+- En complement de Malwarebytes / AdwCleaner / RogueKiller
+- Si Defender seul ne suffit pas
+
+TELECHARGEMENT (Lapwiz)
+1. Bouton « Telecharger KVRT » → %LocalAppData%\Lapwiz\tools\KVRT.exe (~120 Mo)
+2. Ou page officielle Kaspersky Free Virus Removal Tool
+3. Ferme les autres apps avant de lancer
+
+SCAN (howto officiel + captures locales)
+Source images : https://support.kaspersky.com/kvrt2020/howto/15674
+1. Lance KVRT (onglet Scripts)
+2. Change parameters → coche objets / Add object → OK
+3. Start scan
+4. Traite les menaces si demande
+5. details pour le rapport
+6. Close — puis scan Defender + AV temps reel
+
+LIMITES
+- Ne remplace pas un LiveDisk si Windows est trop infecte
+- Les EXE « soignes » peuvent rester instables → onglet Installateur
+- Ne restaure pas d'anciens Program Files infectes

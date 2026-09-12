@@ -1,0 +1,18 @@
+[
+  { "file": "01-hero-expiro.png", "caption": "Presentation Expiro (WinTips)", "step": 0 },
+  { "file": "02-drweb-agree.png", "caption": "Dr.Web LiveCD — accepter la licence", "step": 1 },
+  { "file": "03-burn-iso.png", "caption": "Graver / preparer l'ISO sur media bootable", "step": 1 },
+  { "file": "04-drweb-language.png", "caption": "Boot LiveCD — choisir la langue", "step": 2 },
+  { "file": "05-drweb-scanner.png", "caption": "Ouvrir Scanner", "step": 2 },
+  { "file": "06-full-scan.png", "caption": "Choisir Full Scan", "step": 2 },
+  { "file": "07-begin-scan.png", "caption": "Lancer le scan", "step": 2 },
+  { "file": "08-scanning.png", "caption": "Scan en cours", "step": 2 },
+  { "file": "09-cure-exe.png", "caption": "Cure des EXE infectes", "step": 2 },
+  { "file": "10-shutdown.png", "caption": "Eteindre proprement, retirer le media", "step": 2 },
+  { "file": "11-safe-mode.png", "caption": "Safe Mode with Networking", "step": 3 },
+  { "file": "12-msconfig-safe.png", "caption": "msconfig — Demarrage securise + Reseau", "step": 3 },
+  { "file": "13-roguekiller.png", "caption": "RogueKiller", "step": 4 },
+  { "file": "14-roguekiller-scan.png", "caption": "RogueKiller — Scan / Registry", "step": 4 },
+  { "file": "15-adwcleaner.png", "caption": "AdwCleaner — Scan puis Clean", "step": 5 },
+  { "file": "16-malwarebytes-scan.png", "caption": "Malwarebytes — Scan complet", "step": 6 }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "understand",
+    "title": "Comprendre",
+    "subtitle": "Expiro · Trend · !MTB",
+    "hero": "01-hero-expiro.png",
+    "extraImages": [],
+    "wintipsSteps": []
+  },
+  {
+    "id": "livedisk",
+    "title": "LiveDisk",
+    "subtitle": "Dr.Web hors Windows",
+    "hero": "guide-livedisk.png",
+    "extraImages": [],
+    "wintipsSteps": [1, 2]
+  },
+  {
+    "id": "safemode",
+    "title": "Safe Mode",
+    "subtitle": "Audit + Startup",
+    "hero": "guide-safemode.png",
+    "extraImages": [],
+    "wintipsSteps": [3]
+  },
+  {
+    "id": "tools",
+    "title": "Outils",
+    "subtitle": "RK · Adw · MBAM · KVRT",
+    "hero": "guide-malwarebytes.png",
+    "extraImages": ["guide-scan-kvrt.png"],
+    "wintipsSteps": [4, 5, 6]
+  },
+  {
+    "id": "defender",
+    "title": "Defender",
+    "subtitle": "Scan final + USB",
+    "hero": "guide-scan-kvrt.png",
+    "extraImages": [],
+    "wintipsSteps": []
+  },
+  {
+    "id": "reinstall",
+    "title": "Apps",
+    "subtitle": "winget Lapwiz",
+    "hero": "guide-reinstall.png",
+    "extraImages": [],
+    "wintipsSteps": [7]
+  }
+]

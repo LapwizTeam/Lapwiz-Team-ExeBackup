@@ -1,0 +1,7 @@
+[
+  { "file": "kvrt-official-01-change-params.png", "caption": "Change parameters", "step": 2, "source": "https://img.kaspersky.com/kb/en-global/518252_518276_kvrt_15674_01.png" },
+  { "file": "kvrt-official-02-scan-settings.png", "caption": "Scan settings / Add object / OK", "step": 3, "source": "https://img.kaspersky.com/kb/en-global/518252_518278_kvrt_15674_02.png" },
+  { "file": "kvrt-official-03-start-scan.png", "caption": "Start scan", "step": 4, "source": "https://img.kaspersky.com/kb/en-global/518252_518277_kvrt_15674_04.png" },
+  { "file": "kvrt-official-04-details.jpg", "caption": "details (rapport)", "step": 5, "source": "https://img.kaspersky.com/kb/en-global/518252_518279_kvrt_15674_03.jpg" },
+  { "file": "kvrt-official-05-close.jpg", "caption": "Close", "step": 6, "source": "https://img.kaspersky.com/kb/en-global/518252_518280_kvrt_15674_05.jpg" }
+]

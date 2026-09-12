@@ -1,0 +1,246 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Palette moderne: Slate Teal + Sage + Charcoal (cool neutrals, pas cream/violet) -->
+    <Color x:Key="BgDeep">#FFF2F6F5</Color>
+    <Color x:Key="BgPanel">#FFFFFFFF</Color>
+    <Color x:Key="BgElevated">#FFE6EFED</Color>
+    <Color x:Key="Accent">#FF1C5D5F</Color>
+    <Color x:Key="AccentHover">#FF247A7D</Color>
+    <Color x:Key="AccentSoft">#FF65B8A2</Color>
+    <Color x:Key="TextPrimary">#FF283338</Color>
+    <Color x:Key="TextMuted">#FF5F7378</Color>
+    <Color x:Key="BorderSubtle">#FFC9D8D5</Color>
+    <Color x:Key="Danger">#FFB54A4A</Color>
+    <!-- Console journal — palette moderne slate/teal (statuts + codes) -->
+    <Color x:Key="LogBg">#FF121F22</Color>
+    <Color x:Key="LogHeaderBg">#FF18282B</Color>
+    <Color x:Key="LogText">#FFC5DDD8</Color>
+    <Color x:Key="LogMuted">#FF6F8F8A</Color>
+    <Color x:Key="LogInfo">#FF7EB8C9</Color>
+    <Color x:Key="LogTag">#FF65B8A2</Color>
+    <Color x:Key="LogSuccess">#FF6BCF9B</Color>
+    <Color x:Key="LogWarn">#FFE2B45C</Color>
+    <Color x:Key="LogError">#FFFF7A6E</Color>
+    <Color x:Key="LogCritical">#FFFF4D5E</Color>
+    <Color x:Key="LogCode">#FF9BB7FF</Color>
+    <Color x:Key="IconChip">#FFD8EBE6</Color>
+
+    <SolidColorBrush x:Key="BrushBgDeep" Color="{StaticResource BgDeep}"/>
+    <SolidColorBrush x:Key="BrushBgPanel" Color="{StaticResource BgPanel}"/>
+    <SolidColorBrush x:Key="BrushBgElevated" Color="{StaticResource BgElevated}"/>
+    <SolidColorBrush x:Key="BrushAccent" Color="{StaticResource Accent}"/>
+    <SolidColorBrush x:Key="BrushAccentHover" Color="{StaticResource AccentHover}"/>
+    <SolidColorBrush x:Key="BrushAccentSoft" Color="{StaticResource AccentSoft}"/>
+    <SolidColorBrush x:Key="BrushTextPrimary" Color="{StaticResource TextPrimary}"/>
+    <SolidColorBrush x:Key="BrushTextMuted" Color="{StaticResource TextMuted}"/>
+    <SolidColorBrush x:Key="BrushBorderSubtle" Color="{StaticResource BorderSubtle}"/>
+    <SolidColorBrush x:Key="BrushDanger" Color="{StaticResource Danger}"/>
+    <SolidColorBrush x:Key="BrushLogBg" Color="{StaticResource LogBg}"/>
+    <SolidColorBrush x:Key="BrushLogHeaderBg" Color="{StaticResource LogHeaderBg}"/>
+    <SolidColorBrush x:Key="BrushLogText" Color="{StaticResource LogText}"/>
+    <SolidColorBrush x:Key="BrushLogMuted" Color="{StaticResource LogMuted}"/>
+    <SolidColorBrush x:Key="BrushLogInfo" Color="{StaticResource LogInfo}"/>
+    <SolidColorBrush x:Key="BrushLogTag" Color="{StaticResource LogTag}"/>
+    <SolidColorBrush x:Key="BrushLogSuccess" Color="{StaticResource LogSuccess}"/>
+    <SolidColorBrush x:Key="BrushLogWarn" Color="{StaticResource LogWarn}"/>
+    <SolidColorBrush x:Key="BrushLogError" Color="{StaticResource LogError}"/>
+    <SolidColorBrush x:Key="BrushLogCritical" Color="{StaticResource LogCritical}"/>
+    <SolidColorBrush x:Key="BrushLogCode" Color="{StaticResource LogCode}"/>
+    <SolidColorBrush x:Key="BrushIconChip" Color="{StaticResource IconChip}"/>
+    <SolidColorBrush x:Key="BrushOnAccent" Color="#FFF4FFFE"/>
+
+    <!-- Couleurs onglets (palette moderne cool / terre, pas violet) -->
+    <SolidColorBrush x:Key="BrushTabStore" Color="#FF1C5D5F"/>
+    <SolidColorBrush x:Key="BrushTabAdb" Color="#FF2A6F97"/>
+    <SolidColorBrush x:Key="BrushTabInstall" Color="#FF2F6B57"/>
+    <SolidColorBrush x:Key="BrushTabExpiro" Color="#FFC45C26"/>
+    <SolidColorBrush x:Key="BrushTabScripts" Color="#FF4E6A8A"/>
+    <SolidColorBrush x:Key="BrushTabKvrt" Color="#FF8A5A3C"/>
+    <SolidColorBrush x:Key="BrushTabSynaptic" Color="#FF3F6F78"/>
+    <SolidColorBrush x:Key="BrushToastBg" Color="#FF152628"/>
+    <SolidColorBrush x:Key="BrushToastFg" Color="#FFE8F4F1"/>
+
+    <LinearGradientBrush x:Key="BrushHeroBg" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FFF2F6F5" Offset="0"/>
+        <GradientStop Color="#FFE8F1EF" Offset="0.5"/>
+        <GradientStop Color="#FFDCECE8" Offset="1"/>
+    </LinearGradientBrush>
+
+    <Style x:Key="IconGlyph" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Segoe Fluent Icons, Segoe MDL2 Assets"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
+    </Style>
+
+    <Style x:Key="PrimaryButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource BrushAccent}"/>
+        <Setter Property="Foreground" Value="{StaticResource BrushOnAccent}"/>
+        <Setter Property="FontFamily" Value="Segoe UI Variable Text, Segoe UI"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="16,10"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bd"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="8"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="{StaticResource BrushAccentHover}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="bd" Property="Opacity" Value="0.45"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GhostButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+        <Setter Property="Background" Value="{StaticResource BrushBgPanel}"/>
+        <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bd"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{StaticResource BrushBorderSubtle}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="BorderBrush" Value="{StaticResource BrushAccent}"/>
+                            <Setter TargetName="bd" Property="Background" Value="{StaticResource BrushBgElevated}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="bd" Property="Opacity" Value="0.45"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LogGhostButton" TargetType="Button">
+        <Setter Property="Background" Value="#221C5D5F"/>
+        <Setter Property="Foreground" Value="{StaticResource BrushLogTag}"/>
+        <Setter Property="FontFamily" Value="Segoe UI Variable Text, Segoe UI"/>
+        <Setter Property="FontWeight" Value="Medium"/>
+        <Setter Property="FontSize" Value="11"/>
+        <Setter Property="Padding" Value="10,4"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="bd"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="#4465B8A2"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="bd" Property="Background" Value="#33247A7D"/>
+                            <Setter TargetName="bd" Property="BorderBrush" Value="{StaticResource BrushLogTag}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Expander moderne (progressive disclosure) -->
+    <Style x:Key="ModernExpander" TargetType="Expander">
+        <Setter Property="Foreground" Value="{StaticResource BrushTextPrimary}"/>
+        <Setter Property="Background" Value="{StaticResource BrushBgElevated}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BrushBorderSubtle}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Margin" Value="0,0,0,8"/>
+        <Setter Property="IsExpanded" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Expander">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="12">
+                        <DockPanel>
+                            <ToggleButton x:Name="HeaderSite"
+                                          DockPanel.Dock="Top"
+                                          IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                          Background="Transparent"
+                                          BorderThickness="0"
+                                          Cursor="Hand"
+                                          Padding="12,10"
+                                          HorizontalContentAlignment="Stretch">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border x:Name="hdr" Background="Transparent" Padding="{TemplateBinding Padding}" CornerRadius="12">
+                                            <DockPanel LastChildFill="True">
+                                                <TextBlock x:Name="chev"
+                                                           DockPanel.Dock="Right"
+                                                           Text="&#xE70D;"
+                                                           FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets"
+                                                           FontSize="12"
+                                                           Foreground="{StaticResource BrushTextMuted}"
+                                                           VerticalAlignment="Center"
+                                                           Margin="8,0,0,0"/>
+                                                <ContentPresenter VerticalAlignment="Center"/>
+                                            </DockPanel>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="hdr" Property="Background" Value="{StaticResource BrushBgPanel}"/>
+                                            </Trigger>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="chev" Property="Text" Value="&#xE70E;"/>
+                                                <Setter TargetName="chev" Property="Foreground" Value="{StaticResource BrushAccent}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                                <ContentPresenter ContentSource="Header"
+                                                  RecognizesAccessKey="True"
+                                                  VerticalAlignment="Center"/>
+                            </ToggleButton>
+                            <ContentPresenter x:Name="ExpandSite"
+                                              DockPanel.Dock="Bottom"
+                                              Visibility="Collapsed"
+                                              Margin="12,0,12,12"/>
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ExpandSite" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="LogExpander" TargetType="Expander" BasedOn="{StaticResource ModernExpander}">
+        <Setter Property="Background" Value="{StaticResource BrushLogBg}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BrushBorderSubtle}"/>
+        <Setter Property="Foreground" Value="{StaticResource BrushLogText}"/>
+    </Style>
+</ResourceDictionary>

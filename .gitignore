@@ -1,0 +1,24 @@
+# Builds / releases
+**/release/
+**/*.zip
+
+# IDE / OS
+.vs/
+.vscode/
+*.user
+Thumbs.db
+Desktop.ini
+
+# Runtime / local
+**/.env
+**/packages.user.json
+**/packages.hidden.json
+**/ui-lang.txt
+**/crash.log
+**/_crash-*.txt
+**/adb-quarantine/
+**/clean-tools/
+**/adb-scan-history.json
+
+# Shortcuts
+*.lnk

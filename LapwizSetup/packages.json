@@ -1,0 +1,134 @@
+[
+  {
+    "id": "RARLab.WinRAR",
+    "name": "WinRAR",
+    "category": "Utilitaires",
+    "notes": "Archiveur officiel",
+    "icon": "winrar.png",
+    "selected": true
+  },
+  {
+    "id": "7zip.7zip",
+    "name": "7-Zip",
+    "category": "Utilitaires",
+    "notes": "Archiveur open source",
+    "icon": "7zip.png",
+    "selected": true
+  },
+  {
+    "id": "Notepad++.Notepad++",
+    "name": "Notepad++",
+    "category": "Utilitaires",
+    "notes": "Editeur de texte",
+    "icon": "notepadpp.png",
+    "selected": true
+  },
+  {
+    "id": "Git.Git",
+    "name": "Git",
+    "category": "Developpement",
+    "notes": "Controle de version",
+    "icon": "git.png",
+    "selected": true
+  },
+  {
+    "id": "Google.Chrome",
+    "name": "Google Chrome",
+    "category": "Navigateurs",
+    "notes": "Navigateur Google",
+    "icon": "chrome.png",
+    "selected": true
+  },
+  {
+    "id": "Mozilla.Firefox",
+    "name": "Mozilla Firefox",
+    "category": "Navigateurs",
+    "notes": "Navigateur Mozilla",
+    "icon": "firefox.png",
+    "selected": true
+  },
+  {
+    "id": "Opera.Opera",
+    "name": "Opera",
+    "category": "Navigateurs",
+    "notes": "Navigateur Opera Stable",
+    "icon": "opera.png",
+    "selected": true
+  },
+  {
+    "id": "Kaspersky.KVRT",
+    "name": "Kaspersky Virus Removal Tool",
+    "category": "Securite",
+    "notes": "Telecharge le build officiel KVRT (~120 Mo) puis lance",
+    "icon": "kvrt.png",
+    "selected": false,
+    "installMode": "url",
+    "installUrl": "https://devbuilds.s.kaspersky-labs.com/devbuilds/KVRT/latest/full/KVRT.exe",
+    "runAfterDownload": true
+  },
+  {
+    "id": "OpenJS.NodeJS.LTS",
+    "name": "Node.js LTS",
+    "category": "Developpement",
+    "notes": "Runtime JavaScript LTS",
+    "icon": "nodejs.png",
+    "selected": true
+  },
+  {
+    "id": "Python.Python.3.12",
+    "name": "Python 3.12",
+    "category": "Developpement",
+    "notes": "Interpreteur Python",
+    "icon": "python.png",
+    "selected": true
+  },
+  {
+    "id": "EclipseAdoptium.Temurin.21.JDK",
+    "name": "Java JDK 21 (Temurin)",
+    "category": "Developpement",
+    "notes": "JDK 21 LTS Adoptium",
+    "icon": "java.png",
+    "selected": true
+  },
+  {
+    "id": "Google.AndroidStudio",
+    "name": "Android Studio",
+    "category": "Mobile",
+    "notes": "Installation longue",
+    "icon": "androidstudio.png",
+    "selected": true
+  },
+  {
+    "id": "Google.PlatformTools",
+    "name": "Android Platform-Tools (ADB)",
+    "category": "Mobile",
+    "notes": "adb + fastboot ; PATH ajoute apres install",
+    "icon": "adb.png",
+    "selected": true,
+    "postAction": "adbPath"
+  },
+  {
+    "id": "Microsoft.DotNet.DesktopRuntime.8",
+    "name": ".NET Desktop Runtime 8",
+    "category": ".NET",
+    "notes": "Runtime applications WPF/WinForms",
+    "icon": "dotnet.png",
+    "selected": true
+  },
+  {
+    "id": "Microsoft.DotNet.SDK.8",
+    "name": ".NET SDK 8",
+    "category": ".NET",
+    "notes": "SDK pour compiler",
+    "icon": "dotnet.png",
+    "selected": true
+  },
+  {
+    "id": "Microsoft.DotNet.AspNetCore.8",
+    "name": "ASP.NET Core Runtime 8",
+    "category": ".NET",
+    "notes": "Runtime web ASP.NET",
+    "icon": "dotnet.png",
+    "selected": true
+  }
+]
